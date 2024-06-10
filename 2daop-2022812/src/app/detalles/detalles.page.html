@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img [src]="product.image" alt="product-image"/>
+
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button size="small" color="light">
+        <ion-icon name="heart-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-card-content>
+      <ion-card-title>{{ product.name }}</ion-card-title>
+      <div class="price-rating">
+        <p>{{ product.price | currency }}</p>
+        <div class="rating">
+          <ion-icon name="star"></ion-icon>
+          <ion-label>{{ product.rating }}</ion-label>
+          <a href="#">{{ product.reviews }} Reseñas</a>
+        </div>
+      </div>
+      <p>{{ product.description }}</p>
+
+      <div class="options">
+        <div class="option">
+          <p>Seleccionar tamaño</p>
+          <ion-segment [(ngModel)]="selectedSize">
+            <ion-segment-button value="S">S</ion-segment-button>
+            <ion-segment-button value="M">M</ion-segment-button>
+            <ion-segment-button value="L">L</ion-segment-button>
+            <ion-segment-button value="XL">XL</ion-segment-button>
+          </ion-segment>
+        </div>
+        <div class="option">
+          <p>Color</p>
+          <ion-radio-group [(ngModel)]="selectedColor">
+            <ion-item *ngFor="let color of product.colors" lines="none">
+              <ion-label>{{ color.name }}</ion-label>
+              <ion-radio slot="start" [value]="color.value"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </div>
+      </div>
+
+      <ion-button expand="block" (click)="addToCart()" shape="round">
+        Añadir a carrito | {{ discountedPrice | currency }} <span class="original-price">{{ product.price | currency }}</span>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

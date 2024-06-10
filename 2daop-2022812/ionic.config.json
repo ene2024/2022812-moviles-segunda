@@ -1,0 +1,7 @@
+{
+  "name": "2daop-2022812",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

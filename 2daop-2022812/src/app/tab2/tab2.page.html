@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carrito</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="clearCart()" class="large-button">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of cartItems">
+      <ion-thumbnail slot="start">
+        <img [src]="item.image"/>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.price | currency }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button class="quantity-button" (click)="decreaseQuantity(item)">
+          <ion-icon name="remove-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-badge>{{ item.quantity }}</ion-badge>
+        <ion-button class="quantity-button" (click)="increaseQuantity(item)">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Informacion de envio</ion-label>
+    <ion-select [(ngModel)]="selectedPaymentMethod" interface="popover">
+      <ion-select-option *ngFor="let method of paymentMethods" [value]="method">
+        {{ method }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Total ({{ totalItems }} items)</ion-label>
+    <ion-note slot="end">{{ total | currency }}</ion-note>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Gastos de envio</ion-label>
+    <ion-note slot="end">{{ shippingFee | currency }}</ion-note>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Sub Total</ion-label>
+    <ion-note slot="end">{{ subtotal | currency }}</ion-note>
+  </ion-item>
+
+  <ion-button expand="full" (click)="pay()" shape="round">
+    Pagar
+  </ion-button>
+</ion-content>
